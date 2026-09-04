@@ -4,14 +4,15 @@ from django.urls import reverse
 from django.db.models import F
 from .models import Question,Choice
 from django.views.generic import ListView,DetailView
+from django.utils import timezone
 # Create your views here.
 
 class HomeView(ListView):
     template_name="polls/home.html"
     context_object_name="latest_question_list"
     def get_queryset(self):
-        return Question.objects.order_by("-publication_date")[:5]
-
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+    
 
 class DetailView(DetailView):
     model=Question
