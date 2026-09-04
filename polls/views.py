@@ -11,7 +11,7 @@ class HomeView(ListView):
     template_name="polls/home.html"
     context_object_name="latest_question_list"
     def get_queryset(self):
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+        return Question.objects.filter(publication_date__lte=timezone.now()).order_by("-publication_date")[:5]
     
 
 class DetailView(DetailView):
